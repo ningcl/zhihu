@@ -5,7 +5,13 @@ const { secret } = require('../config.js');
 class Users {
     // 查询用户列表
     async find(ctx) {
-        ctx.body = await UserModel.find();
+        // 每页显示条数，默认值为10
+        const { limit = 10 } = ctx.query;
+        const perPage = Math.max(limit * 1, 1);
+        // 获取当前页数
+        const page = Math.max(ctx.query.page * 1, 1) - 1;
+        // 分页查询
+        ctx.body = await UserModel.find({name: new RegExp(ctx.query.q)}).limit(perPage).skip(page * perPage);
     }
 
     // 查询单个用户

@@ -1,5 +1,5 @@
 const Router = require('koa-router');
-// 解析token
+// 解析token中间件
 const jwt = require('koa-jwt');
 const {
     find,
@@ -7,11 +7,12 @@ const {
     create,
     update
 } = require('../controllers/topics');
+// 导入秘钥
 const { secret } = require('../config');
 // 校验token是否失效
 const auth = jwt({ secret });
 
-// 定义路由前缀
+// 定义路由并指定前缀
 const router = new Router({
     prefix: '/topic'
 });
