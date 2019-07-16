@@ -32,23 +32,27 @@ const userSchame = new Schema({
     // 居住地
     locations: {
         type: [{
-            type: String
+            type: Schema.Types.ObjectId,
+            ref: 'Topic'
         }],
         select: false
     },
     // 行业
     business: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: 'Topic',
         select: false
     },
     // 职业经历
     employments: {
         type: [{
             company: {
-                type: String
+                type: Schema.Types.ObjectId,
+                ref: 'Topic'
             },
-            jon: {
-                type: String
+            job: {
+                type: Schema.Types.ObjectId,
+                ref: 'Topic'
             }
         }],
         select: false
@@ -57,10 +61,12 @@ const userSchame = new Schema({
     educations: {
         type: [{
             school: {
-                type: String
+                type: Schema.Types.ObjectId,
+                ref: 'Topic'
             },
             major: {
-                type: String
+                type: Schema.Types.ObjectId,
+                ref: 'Topic'
             },
             diploma: {
                 type: Number,
