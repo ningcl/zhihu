@@ -155,6 +155,41 @@ class Users {
         ctx.body = users;
     }
 
+    // 关注话题
+    async followTopic (ctx) {
+        // 关注话题一定会有登录态，从state中获取自己用户id,并查询自己关注话题列表
+        const me = await UserModel.findById(ctx.state.user._id).select('+followingTopic');
+        // 判断关注话题列表中是否已经存在
+        if (!me.followingTopic.map(id=> id.toString()).includes(ctx.params.id)) {
+            me.followingTopic.push(ctx.params.id);
+            me.save();
+        }
+        ctx.status = 204;
+    }
+
+    // 取消关注话题
+    async unFollowTopic (ctx) {
+        // 关注话题一定会有登录态，从state中获取自己用户id,并查询自己关注话题列表
+        const me = await UserModel.findById(ctx.state.user._id).select('+followingTopic');
+        const index = me.followingTopic.map(id=> id.toString()).indexOf(ctx.params.id);
+        // 判断关注话题列表中是否已经存在
+        if (index > -1) {
+            me.followingTopic.splice(index, 1);
+            me.save();
+        }
+        ctx.status = 204;
+    }
+
+    // 关注话题列表
+    async listFollowingTopic (ctx) {
+        const user = await UserModel.findById(ctx.params.id).select('+followingTopic').populate('followingTopic');
+
+        if (!user) {
+            ctx.throw(404, '用户不存在');
+        }
+        ctx.body = user.followingTopic;
+    }
+
     // 授权，查看是不是自己
     async checkOwner(ctx, next) {
         if (ctx.params.id !== ctx.state.user._id) {
@@ -170,7 +205,7 @@ class Users {
         } else {
             await next();
         }
-    }
+    }    
 }
 
 module.exports = new Users();

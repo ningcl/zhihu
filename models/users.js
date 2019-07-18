@@ -1,6 +1,6 @@
 const {Schema, model} = require('mongoose');
 
-//建立Schame
+//建立用户Schame
 const userSchame = new Schema({
     // 用户名
     name: {
@@ -11,7 +11,7 @@ const userSchame = new Schema({
     password: {
         type: String,
         required: true,
-        // 查询过程中，是否显示字段
+        // select控制查询过程中是否显示此字段
         select: false
     },
     // 头像
@@ -22,7 +22,7 @@ const userSchame = new Schema({
     gender: {
         type: String,
         default: 'male',
-        // 枚举类型
+        // enum定义枚举类型
         enum: ['male', 'female']
     },
     // 一句话介绍
@@ -32,6 +32,7 @@ const userSchame = new Schema({
     // 居住地
     locations: {
         type: [{
+            // 关联Topic模型的主键
             type: Schema.Types.ObjectId,
             ref: 'Topic'
         }],
@@ -81,11 +82,21 @@ const userSchame = new Schema({
         }],
         select: false
     },
+    // 关注用户列表
     following: {
         type: [{
             // 关联用户表id
             type: Schema.Types.ObjectId,
             ref: 'User'
+        }],
+        select: false
+    },
+    // 关注话题列表
+    followingTopic: {
+        type: [{
+            // 关联话题表id
+            type: Schema.Types.ObjectId,
+            ref: 'Topic'
         }],
         select: false
     },

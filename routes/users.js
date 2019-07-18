@@ -14,8 +14,13 @@ const {
     follow,
     unfollow,
     Listfollowers,
-    checkUserExist
+    checkUserExist,
+    followTopic,
+    unFollowTopic,
+    listFollowingTopic
 } = require('../controllers/users');
+
+const { checkTopicExist } = require('../controllers/topics');
 const { secret } = require('../config');
 // 定义路由前缀
 const router = new Router({
@@ -57,5 +62,10 @@ router.put('/following/:id', auth, checkUserExist, follow);
 router.delete('/following/:id', auth, checkUserExist, unfollow);
 // 获取粉丝列表
 router.get('/:id/followers', Listfollowers);
-
+// 获取关注话题列表
+router.get('/:id/followingTopic', listFollowingTopic);
+// 关注话题
+router.put('/followingTopic/:id', auth, checkTopicExist, followTopic);
+// 取消关注话题
+router.delete('/unFollowingTopic/:id', auth, checkTopicExist, unFollowTopic);
 module.exports = router;
