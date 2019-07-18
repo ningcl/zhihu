@@ -50,7 +50,7 @@ class Topic {
         ctx.body = topic;
     }
 
-    // 粉丝列表
+    // 话题关注者列表
     async listFollowers (ctx) {
         const users = await userModel.find({followingTopic: ctx.params.id});
         ctx.body = users;

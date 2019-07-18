@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const UserModel = require('../models/users');
+const QuestionModle = require('../models/questions');
 const { secret } = require('../config.js');
 
 class Users {
@@ -188,6 +189,12 @@ class Users {
             ctx.throw(404, '用户不存在');
         }
         ctx.body = user.followingTopic;
+    }
+    
+    // 用户的问题列表
+    async listQuestions (ctx) {
+        const question = await QuestionModle.find({questioner: ctx.params.id});
+        ctx.body = question;
     }
 
     // 授权，查看是不是自己

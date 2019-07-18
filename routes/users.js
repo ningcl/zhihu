@@ -17,7 +17,8 @@ const {
     checkUserExist,
     followTopic,
     unFollowTopic,
-    listFollowingTopic
+    listFollowingTopic,
+    listQuestions
 } = require('../controllers/users');
 
 const { checkTopicExist } = require('../controllers/topics');
@@ -68,4 +69,7 @@ router.get('/:id/followingTopic', listFollowingTopic);
 router.put('/followingTopic/:id', auth, checkTopicExist, followTopic);
 // 取消关注话题
 router.delete('/unFollowingTopic/:id', auth, checkTopicExist, unFollowTopic);
+// 用户的问题列表
+router.get('/:id/questions', listQuestions);
+
 module.exports = router;
