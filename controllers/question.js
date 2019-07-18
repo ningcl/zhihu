@@ -15,7 +15,7 @@ class Question {
         const { id } = ctx.params;
         const { fields = ''}= ctx.query;
         const selectFields = fields.split(';').filter(f=>f).map(f=> ' +' + f).join('');
-        const question = await questionModel.findById(id).select(selectFields).populate('questioner');
+        const question = await questionModel.findById(id).select(selectFields).populate('questioner topics');
         ctx.body = question;
     }
 

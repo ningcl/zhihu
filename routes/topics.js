@@ -7,7 +7,8 @@ const {
     create,
     update,
     listFollowers,
-    checkTopicExist
+    checkTopicExist,
+    listQuestions
 } = require('../controllers/topics');
 // 导入秘钥
 const { secret } = require('../config');
@@ -27,7 +28,8 @@ router.post('/', auth, create);
 router.get('/:id', checkTopicExist, findById);
 // 修改话题信息
 router.put('/:id', auth, checkTopicExist, update);
-// 话题关注者列表
+// 话题的关注者列表
 router.get('/:id/followers', checkTopicExist, listFollowers);
-
+// 话题的问题列表
+router.get('/:id/questions', checkTopicExist, listQuestions);
 module.exports = router;

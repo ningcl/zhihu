@@ -17,6 +17,16 @@ const questionModel = new Schema({
         select: false,
         required: true
     },
+    // 问题的话题列表
+    topics: {
+        type: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Topic'
+            }
+        ],
+        select: false
+    },
     __v: {
         type: Number,
         select: false

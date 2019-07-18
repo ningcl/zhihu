@@ -1,5 +1,6 @@
 const topicModel = require('../models/topics');
 const userModel = require('../models/users');
+const questionModel = require('../models/questions');
 
 class Topic {
     // 查询话题列表
@@ -54,6 +55,12 @@ class Topic {
     async listFollowers (ctx) {
         const users = await userModel.find({followingTopic: ctx.params.id});
         ctx.body = users;
+    }
+
+    // 查询话题的问题列表
+    async listQuestions (ctx) {
+        const questions = await questionModel.find({'topics': ctx.params.id});
+        ctx.body = questions;
     }
 
     // 根据话题ID判断话题是否存在
