@@ -18,10 +18,21 @@ const {
     followTopic,
     unFollowTopic,
     listFollowingTopic,
-    listQuestions
+    listQuestions,
+    listLikingAnwser,
+    likeAnwser,
+    unlikeAnwser,
+    listDislikingAnwser,
+    dislikeAnwser,
+    undislikeAnwser,
+    collectionAnwser,
+    listCollectingAnwser,
+    uncollectionAnwser
+    
 } = require('../controllers/users');
 
 const { checkTopicExist } = require('../controllers/topics');
+const { checkAnswerExist } = require('../controllers/answers');
 const { secret } = require('../config');
 // 定义路由前缀
 const router = new Router({
@@ -71,5 +82,26 @@ router.put('/followingTopic/:id', auth, checkTopicExist, followTopic);
 router.delete('/unFollowingTopic/:id', auth, checkTopicExist, unFollowTopic);
 // 用户的问题列表
 router.get('/:id/questions', listQuestions);
+
+// 获取赞的答案列表
+router.get('/:id/likingAnswer', listLikingAnwser);
+// 赞答案
+router.put('/likingAnswer/:id', auth, checkAnswerExist, likeAnwser, undislikeAnwser);
+// 取消赞答案
+router.delete('/likingAnswer/:id', auth, checkAnswerExist, unlikeAnwser);
+
+// 获取踩的答案列表
+router.get('/:id/dislikingAnswer', listDislikingAnwser);
+// 踩答案
+router.put('/dislikingAnswer/:id', auth, checkAnswerExist, dislikeAnwser, unlikeAnwser);
+// 取消踩答案
+router.delete('/dislikingAnswer/:id', auth, checkAnswerExist, undislikeAnwser);
+
+// 获取收藏答案列表
+router.get('/:id/collectingAnswer', listCollectingAnwser);
+// 收藏答案
+router.put('/collectingAnswer/:id', auth, checkAnswerExist, collectionAnwser);
+// 取消收藏答案
+router.delete('/collectingAnswer/:id', auth, checkAnswerExist, uncollectionAnwser);
 
 module.exports = router;

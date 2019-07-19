@@ -56,11 +56,12 @@ class Answer {
     // 检查答案是否存在
     async checkAnswerExist (ctx, next) {
         let answer = await answerModel.findById(ctx.params.id).select('+answerer');
+        console.log(answer)
         if (!answer) {
             ctx.throw(404, '答案不存在');
         }
-        // 判断答案是不是在指定问题下
-        if (answer.questionId !== ctx.params.questionId) {
+        // 只有在删改查答案的时候才检查此逻辑，赞和踩的时候不检查
+        if (ctx.params.questionId && answer.questionId !== ctx.params.questionId) {
             ctx.throw(404, '该问题下没有此答案');
         }
         ctx.state.answer = answer;

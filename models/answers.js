@@ -18,6 +18,11 @@ const answerModel = new Schema({
         select: false,
         required: true
     },
+    // 投票数
+    voteCount: {
+        type:Number,
+        default: 0
+    },
     __v: {
         type: Number,
         select: false

@@ -100,6 +100,30 @@ const userSchame = new Schema({
         }],
         select: false
     },
+    // 赞答案列表
+    likingAnswers: {
+        type: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Answer'
+        }],
+        select: false
+    },
+    // 踩答案列表
+    dislikingAnswers: {
+        type: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Answer'
+        }],
+        select: false
+    },
+    // 收藏答案列表
+    collectingAnswers: {
+        type: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Answer'
+        }],
+        select: false
+    },
     __v: {
         type: Number,
         select: false
