@@ -27,6 +27,6 @@ const answerModel = new Schema({
         type: Number,
         select: false
     }
-});
+}, { timestamps: true});
 
 module.exports = model('Answer', answerModel);

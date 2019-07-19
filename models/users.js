@@ -128,7 +128,7 @@ const userSchame = new Schema({
         type: Number,
         select: false
     },
-});
+}, { timestamps: true});
 
 // 创建用户模型
 const userModel = model('User', userSchame);

@@ -20,7 +20,7 @@ const topicSchame = new Schema({
         type: Number,
         select: false
     },
-});
+}, { timestamps: true});
 
 // 创建话题模型
 const topicModel = model('Topic', topicSchame);

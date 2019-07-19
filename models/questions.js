@@ -31,6 +31,6 @@ const questionModel = new Schema({
         type: Number,
         select: false
     }
-});
+}, { timestamps: true});
 
 module.exports = model('Question', questionModel);
